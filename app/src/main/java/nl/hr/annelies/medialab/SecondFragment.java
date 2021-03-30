@@ -31,6 +31,8 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class SecondFragment extends Fragment {
 
+    String fileName;
+
     MediaPlayer mediaPlayer = new MediaPlayer();
 
     EditText nameInput;
@@ -158,12 +160,16 @@ public class SecondFragment extends Fragment {
 //        recordButton.setEnabled(false);
 //        recordButton.setEnabled(false);
 
+        System.out.println(Environment.getExternalStorageDirectory().getAbsolutePath()
+                + "/myaudio.3gp");
+        fileName = "/sdcard/myaudio.3gp";
+
         try {
             mediaRecorder = new MediaRecorder();
             mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
             mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-            mediaRecorder.setOutputFile(Environment.getExternalStorageDirectory().getAbsolutePath()
-                    + "/myaudio.3gp");
+
+            mediaRecorder.setOutputFile(fileName);
             mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
             mediaRecorder.prepare();
         } catch (Exception e) {
@@ -198,8 +204,7 @@ public class SecondFragment extends Fragment {
 //        stopButton.setEnabled(true);
 
         mediaPlayer = new MediaPlayer();
-        mediaPlayer.setDataSource(Environment.getExternalStorageDirectory().getAbsolutePath()
-                + "/myaudio.3gp");
+        mediaPlayer.setDataSource(fileName);
         mediaPlayer.prepare();
         mediaPlayer.start();
     }
