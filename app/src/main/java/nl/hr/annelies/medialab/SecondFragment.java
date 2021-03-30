@@ -47,6 +47,8 @@ public class SecondFragment extends Fragment {
     Button submitButton;
     FloatingActionButton recordButton;
 
+    int id = 3;
+
 
     // mic
     MediaRecorder mediaRecorder;
@@ -105,7 +107,7 @@ public class SecondFragment extends Fragment {
             public void onClick(View view) {
                 uploadAudio();
                 String name = nameInput.getText().toString();
-                int id = 3;
+
 
                 Map<String, Object> kid = new HashMap<>();
                 kid.put("name", name);
@@ -224,7 +226,7 @@ public class SecondFragment extends Fragment {
 //        StorageReference filepath = db.getReference().child("Audio").child("new_audio.3gp");
 //        Uri uri = Uri.fromFile(new File(fileName));
         StorageReference mStorage = FirebaseStorage.getInstance().getReference();
-        StorageReference filepath = mStorage.child("Audio").child("new_audio.3gp");
+        StorageReference filepath = mStorage.child("Audio").child(id + ".3gp");
         Uri uri = Uri.fromFile(new File(fileName));
 
         filepath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
