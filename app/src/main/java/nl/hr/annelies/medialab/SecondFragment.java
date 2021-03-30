@@ -46,6 +46,8 @@ public class SecondFragment extends Fragment {
     Button cancelButton;
     Button submitButton;
     FloatingActionButton recordButton;
+    FloatingActionButton playButton;
+
 
     int id = 3;
 
@@ -92,6 +94,9 @@ public class SecondFragment extends Fragment {
         cancelButton =  view.findViewById(R.id.button_second);
         submitButton =  view.findViewById(R.id.button_third);
         recordButton =  view.findViewById(R.id.button_mic);
+        playButton =  view.findViewById(R.id.button_play);
+
+        playButton.setEnabled(false);
 
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
@@ -146,6 +151,20 @@ public class SecondFragment extends Fragment {
         });
 
 
+        playButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+//                playButton.setEnabled(false);
+                try {
+                    playAudio(view);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+
 
 //        recordButton.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -188,6 +207,7 @@ public class SecondFragment extends Fragment {
         }
 
         mediaRecorder.start();
+        playButton.setEnabled(false);
     }
 
     public void stopAudio (View view)
@@ -200,6 +220,7 @@ public class SecondFragment extends Fragment {
             mediaRecorder.stop();
             mediaRecorder.release();
             mediaRecorder = null;
+            playButton.setEnabled(true);
         try {
             playAudio(view);
             System.out.println("Hoi");
