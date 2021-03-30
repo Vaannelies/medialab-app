@@ -16,6 +16,9 @@
         android:theme="@style/Theme.Medialab"
         android:requestLegacyExternalStorage="true">
 
+        <meta-data android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCB6lVObdSR5BVkCOLc1o5-svZUgsQK8Bk"/>
+
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
