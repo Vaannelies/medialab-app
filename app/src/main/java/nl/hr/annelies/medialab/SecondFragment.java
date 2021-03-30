@@ -4,6 +4,7 @@ import android.Manifest;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.media.MicrophoneDirection;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.LayoutInflater;
@@ -18,10 +19,15 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -34,6 +40,7 @@ public class SecondFragment extends Fragment {
     String fileName;
 
     MediaPlayer mediaPlayer = new MediaPlayer();
+    FirebaseFirestore db;
 
     EditText nameInput;
     Button cancelButton;
@@ -60,7 +67,7 @@ public class SecondFragment extends Fragment {
 
 
         // initialize db
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db = FirebaseFirestore.getInstance();
 //
 //        try {
 //            mediaRecorder.setAudioSource(MicrophoneDirection.MIC_DIRECTION_TOWARDS_USER);
@@ -96,12 +103,14 @@ public class SecondFragment extends Fragment {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                uploadAudio();
                 String name = nameInput.getText().toString();
                 int id = 3;
 
                 Map<String, Object> kid = new HashMap<>();
                 kid.put("name", name);
                 kid.put("id", id);
+//                kid.put("mic", uploadAudio());
                 // send ID to database
 
                 db.collection("kids")
@@ -207,6 +216,26 @@ public class SecondFragment extends Fragment {
         mediaPlayer.setDataSource(fileName);
         mediaPlayer.prepare();
         mediaPlayer.start();
+    }
+
+    public void uploadAudio() {
+
+//        StorageReference filepath = db;
+//        StorageReference filepath = db.getReference().child("Audio").child("new_audio.3gp");
+//        Uri uri = Uri.fromFile(new File(fileName));
+        StorageReference mStorage = FirebaseStorage.getInstance().getReference();
+        StorageReference filepath = mStorage.child("Audio").child("new_audio.3gp");
+        Uri uri = Uri.fromFile(new File(fileName));
+
+        filepath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                System.out.println("Uploaded");
+            }
+        });
+
+//        return uri;
+
     }
 
 
