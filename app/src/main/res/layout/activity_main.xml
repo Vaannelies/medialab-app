@@ -1,16 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:map="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+
     tools:context=".MainActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/Theme.Medialab.AppBarOverlay">
+        app:layout_constraintTop_toTopOf="parent"
+        android:theme="@style/Theme.Medialab.AppBarOverlay"
+        android:id="@+id/app_bar_layout">
+
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -25,79 +32,93 @@
 <!--        android:layout_width="match_parent"-->
 <!--        android:layout_height="match_parent">-->
 
-        <include layout="@layout/content_main"
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayoutMaps"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/bottom_coordinator"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/app_bar_layout">
+
+        <include
+            android:id="@+id/content_main"
+            layout="@layout/content_main"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            app:layout_constraintBottom_toTopOf="@+id/fragment_maps"
+            app:layout_constraintTop_toTopOf="parent"
 
             />
 
-    <include layout="@layout/fragment_maps"
-        />
-
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
-        android:layout_width="match_parent"
-        android:layout_height="500dp"
-        android:layout_above="@+id/bottomAppBar"
-        android:layout_alignParentBottom="true"
-        app:layout_constraintBottom_toTopOf="@+id/bottomAppBar"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
-
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        >
-
-<!--        <fragment-->
-<!--            android:id="@+id/map"-->
-<!--            android:name="com.google.android.gms.maps.SupportMapFragment"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            map:mapType="normal"-->
-<!--            map:uiCompass="true"-->
-<!--            map:cameraZoom="10"-->
-<!--            tools:context=".MapsActivity"-->
-<!--            tools:layout_editor_absoluteX="0dp" />-->
+        <include
+            android:id="@+id/fragment_maps"
+            layout="@layout/fragment_maps"
+            android:layout_width="390dp"
+            android:layout_height="302dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/content_main" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!--    </androidx.appcompat.widget.LinearLayoutCompat>-->
-<!--        <fragment-->
-<!--            android:name="com.google.android.gms.maps.SupportMapFragment"-->
-<!--            android:id="@+id/map"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:layout_margin="40dp"/>-->
-
-
-    <com.google.android.material.bottomappbar.BottomAppBar
-        android:id="@+id/bottomAppBar"
-        style="@style/Widget.MaterialComponents.BottomAppBar.Colored"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom">
+        android:id="@+id/bottom_coordinator"
+        app:layout_constraintBottom_toBottomOf="parent"
+        >
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomAppBar"
+            style="@style/Widget.MaterialComponents.BottomAppBar.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:buttonGravity="center_vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_gravity="center_vertical">
 
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:id="@+id/button_1"
-            ></androidx.appcompat.widget.AppCompatButton>
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="left"
+                android:id="@+id/button_1"
+                android:layout_marginLeft="20dp"
+                ></androidx.appcompat.widget.AppCompatButton>
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:id="@+id/button_2"
-            ></androidx.appcompat.widget.AppCompatButton>
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_horizontal"
+                android:id="@+id/button_2"
+                ></androidx.appcompat.widget.AppCompatButton>
 
-    </com.google.android.material.bottomappbar.BottomAppBar>
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/button_3"
+                android:layout_gravity="right"
+                android:layout_marginRight="20dp"
+                ></androidx.appcompat.widget.AppCompatButton>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_anchor="@id/bottomAppBar"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+        </com.google.android.material.bottomnavigation.BottomNavigationView>
 
 
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+
+    <!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--        android:id="@+id/fab"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:layout_anchor="@id/bottomAppBar"-->
+<!--        app:srcCompat="@android:drawable/ic_dialog_email" />-->
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
