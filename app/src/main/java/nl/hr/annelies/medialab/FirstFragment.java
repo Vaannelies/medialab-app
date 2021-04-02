@@ -39,7 +39,7 @@ public class FirstFragment extends Fragment {
                             public void onClick(DialogInterface dialog, int which) {
 //                                NavHostFragment.findNavController(FirstFragment.this)
 //                                    .navigate(R.id.action_FirstFragment_to_SecondFragment);
-                                startActivity(new Intent(this, MicActivity.class));
+                                startActivity(new Intent(getActivity(), MicActivity.class));
                             }
                         });
                 builder.setNegativeButton("Annuleren", new DialogInterface.OnClickListener() {

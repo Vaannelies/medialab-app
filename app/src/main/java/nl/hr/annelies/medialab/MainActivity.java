@@ -1,6 +1,7 @@
 package nl.hr.annelies.medialab;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
@@ -26,6 +27,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -46,6 +48,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private GoogleMap mMap;
     private String markerIcon = "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png";
     Hotspot[] hotspots = new Hotspot[3] ;
+    Button rulesButton;
+    Button settingsButton;
 
 
 
@@ -69,19 +73,33 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         hotspots[2] = new Hotspot("restaurantje ofzo", new LatLng(52.11224552563259, 4.278095452177875), "restaurantje denk ik");
 //        hotspots[1] = new Hotspot("informatie punt", new LatLng(52.11796848556339, 4.280011749484001), "info enzo");
 
+        // buttons
+        rulesButton = findViewById(R.id.button_1);
+        settingsButton = findViewById(R.id.button_3);
+
+        rulesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, RulesActivity.class));
+            }
+        });
+
+        settingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, SettingsActivity.class));
+            }
+        });
+
         // request permission for recording audio
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECORD_AUDIO, Manifest.permission.ACCESS_FINE_LOCATION}, 200);
-
-
 
         // map fragment
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(MainActivity.this);
-
         fetchLocation();
 
 
@@ -154,6 +172,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
     @Override
     public void onMapReady(GoogleMap googleMap) {
+
         mMap = googleMap;
         enableUserLocation();
 
@@ -162,7 +181,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             // user
             LatLng userLocation = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLocation, 15));
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userLocation, 15));
 //            MarkerOptions markOptUser = new MarkerOptions().position(userLocation).title("Huidige locatie").icon(BitmapDescriptorFactory.fromResource(R.drawable.rudy_grey));
 //            mMap.addMarker(markOptUser);
 
@@ -175,14 +194,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
 //            MarkerOptions markOptStrWacht= new MarkerOptions().position(userLocation).title("Huidige locatie").icon(BitmapDescriptorFactory.fromResource(R.drawable.rudy_colored));
         }
+    }
 
-//        // Add a marker in Sydney and move the camera
-//        LatLng sydney = new LatLng(-34, 151);
-//        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
 
-//
-//        mMap.animateCamera(CameraUpdateFactory.newLatLng(userLocation));
-//        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userLocation, 1));
+    void goToRules() {
+        startActivity(new Intent(this, SettingsActivity.class));
     }
 }
 

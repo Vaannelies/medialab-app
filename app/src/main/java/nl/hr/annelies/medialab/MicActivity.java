@@ -19,6 +19,7 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -67,7 +68,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class MicActivity extends AppCompatActivity {
 
-        String fileName;
+        String fileName = "/sdcard/myaudio.3gp";
 
         MediaPlayer mediaPlayer = new MediaPlayer();
         FirebaseFirestore db;
@@ -77,6 +78,7 @@ public class MicActivity extends AppCompatActivity {
         Button submitButton;
         FloatingActionButton recordButton;
         FloatingActionButton playButton;
+
 
 
         int id = 3;
@@ -90,11 +92,10 @@ public class MicActivity extends AppCompatActivity {
 
                 Bundle savedInstanceState
         ) {
-
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_mic);
 
             // initialize db
-            super.onCreate(savedInstanceState);
-//            setContentView(R.layout.activity_main);
             db = FirebaseFirestore.getInstance();
 //
 //        try {
@@ -126,6 +127,7 @@ public class MicActivity extends AppCompatActivity {
             cancelButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    finish();
 //                    NavHostFragment.findNavController(nl.hr.annelies.medialab.SecondFragment.this)
 //                            .navigate(R.id.action_SecondFragment_to_FirstFragment);
                 }
@@ -214,8 +216,9 @@ public class MicActivity extends AppCompatActivity {
 
             System.out.println(Environment.getExternalStorageDirectory().getAbsolutePath()
                     + "/myaudio.3gp");
-            fileName = "/sdcard/myaudio.3gp";
 
+            Long tsLong = System.currentTimeMillis()/1000;
+            fileName = "/sdcard/myaudio_" + tsLong.toString() + ".3gp";
             try {
                 mediaRecorder = new MediaRecorder();
                 mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
