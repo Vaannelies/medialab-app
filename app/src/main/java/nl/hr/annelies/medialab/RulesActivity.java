@@ -1,5 +1,6 @@
 package nl.hr.annelies.medialab;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -11,6 +12,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 public class RulesActivity extends AppCompatActivity {
@@ -24,6 +26,24 @@ public class RulesActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        Button homeButton = findViewById(R.id.button_2);
+        Button settingsButton = findViewById(R.id.button_3);
+
+        homeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(RulesActivity.this, MainActivity.class));
+                finish();
+            }
+        });
+
+        settingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(RulesActivity.this, SettingsActivity.class));
+                finish();
+            }
+        });
 //        rules[0] = "Bladiebla :)";
 //        rules[1] = "Blieblabloe :D";
 //
@@ -31,13 +51,5 @@ public class RulesActivity extends AppCompatActivity {
 //        listView.setAdapter(new ArrayAdapter<String>(RulesActivity.this, R.layout.rule, rules));
 
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
     }
 }
