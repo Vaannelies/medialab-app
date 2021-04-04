@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
 <!--    <ListView-->
@@ -16,20 +17,24 @@
 <!--        app:layout_constraintStart_toStartOf="parent">-->
 <!--    </ListView>-->
     <TextView
-        app:layout_constraintTop_toTopOf="parent"
         android:id="@+id/rules_header"
-        android:layout_margin="20dp"
-        android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="100dp"
+        android:layout_margin="20dp"
+        android:gravity="center"
         android:text="Voordat u van uw dag gaat genieten, willen wij u even op een aantal punten wijzen."
-        />
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="20dp"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         app:layout_constraintTop_toBottomOf="@id/rules_header"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="20dp">
+        android:layout_height="500dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+  >
 
         <LinearLayout
             android:id="@+id/rule_1"
