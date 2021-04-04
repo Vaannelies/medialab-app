@@ -1,5 +1,6 @@
 package nl.hr.annelies.medialab;
 
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.net.Uri;
@@ -97,22 +98,34 @@ public class MicActivity extends AppCompatActivity {
 
             // initialize db
             db = FirebaseFirestore.getInstance();
-//
-//        try {
-//            mediaRecorder.setAudioSource(MicrophoneDirection.MIC_DIRECTION_TOWARDS_USER);
-//            mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.AAC_ADTS);
-//            mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
-//            mediaRecorder.setOutputFile(Environment.getExternalStorageDirectory().getAbsolutePath()
-//                    + "/myaudio.3gp");
-//        } catch (Exception e) {
-//            System.out.println(e);
-//        }
-//
-//        try {
-//            mediaRecorder.prepare();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+
+            // nav buttons
+            Button rulesButton = findViewById(R.id.button_1);
+            Button homeButton = findViewById(R.id.button_2);
+            Button settingsButton = findViewById(R.id.button_3);
+
+            rulesButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(MicActivity.this, RulesActivity.class));
+                    finish();
+                }
+            });
+
+            homeButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    finish();
+                }
+            });
+
+            settingsButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(MicActivity.this, SettingsActivity.class));
+                    finish();
+                }
+            });
 
 
             nameInput = findViewById(R.id.name_input);
