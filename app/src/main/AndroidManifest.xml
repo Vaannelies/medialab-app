@@ -20,7 +20,8 @@
             android:theme="@style/Theme.Medialab.NoActionBar"></activity>
         <activity
             android:name=".SettingsActivity"
-            android:label="@string/title_activity_settings" />
+            android:label="@string/title_activity_settings"
+            android:theme="@style/Theme.Medialab.NoActionBar"/>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -38,6 +39,7 @@
         </activity>
         <activity
             android:name=".MicActivity"
+            android:theme="@style/Theme.Medialab.NoActionBar"
             android:label="Praten tegen uw kind" />
     </application>
 

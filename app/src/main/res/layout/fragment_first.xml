@@ -18,6 +18,30 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/tooltip"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintStart_toEndOf="@id/textview_first"
+        android:tooltipText="ID"
+        app:layout_constraintTop_toTopOf="parent">
+    </com.google.android.material.floatingactionbutton.FloatingActionButton>
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintStart_toEndOf="@id/textview_first"
+        android:foregroundGravity="center"
+        android:background="@drawable/tooltip"
+        app:layout_constraintTop_toTopOf="parent">
+    </androidx.appcompat.widget.AppCompatTextView>
+
     <Button
         android:id="@+id/button_first"
         android:layout_width="wrap_content"
@@ -28,4 +52,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textview_first" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
