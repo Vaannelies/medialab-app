@@ -2,6 +2,7 @@ package nl.hr.annelies.medialab;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
@@ -26,6 +27,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.preference.PreferenceManager;
 
 import android.os.Bundle;
 import android.widget.Button;
@@ -52,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     Hotspot[] hotspots = new Hotspot[3] ;
     Button rulesButton;
     Button settingsButton;
-
+    Integer id;
 
 
 
@@ -67,6 +69,16 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt("id", 176204);
+        editor.apply();
+
+        id = sharedPreferences.getInt("id", 0);
+
 
         hotspots[0] = new Hotspot("strandwacht", new LatLng(52.11463474012185, 4.280247697237467), "hallo");
         hotspots[1] = new Hotspot("pier", new LatLng(52.11796848556339, 4.280011749484001), "pier");

@@ -1,6 +1,7 @@
 package nl.hr.annelies.medialab;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.Image;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
@@ -52,6 +53,7 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
+import androidx.preference.PreferenceManager;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -86,7 +88,7 @@ public class MicActivity extends AppCompatActivity {
 
 
 
-        int id = 176207;
+        Integer id;
 
 
         // mic
@@ -99,6 +101,10 @@ public class MicActivity extends AppCompatActivity {
         ) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_mic);
+
+            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+            id = sharedPreferences.getInt("id", 0);
+
 
             // initialize db
             db = FirebaseFirestore.getInstance();
@@ -195,8 +201,10 @@ public class MicActivity extends AppCompatActivity {
                         Map<String, Object> kid = new HashMap<>();
                         kid.put("id", id);
                         // send ID to database
-                        db.collection("kids")
-                                .add(kid);
+                        Integer idInteger = new Integer(id);
+                        db.collection("kids").document(idInteger.toString()).set(kid);
+//                                .add(kid);
+
                     }
                 }
 //

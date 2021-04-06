@@ -9,15 +9,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.preference.PreferenceManager;
 
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class FirstFragment extends Fragment {
 
     private Boolean kidLost;
+    private Integer id;
+    FirebaseFirestore db;
 
     @Override
     public View onCreateView(
@@ -34,9 +42,11 @@ public class FirstFragment extends Fragment {
         Button buttonLost = view.findViewById(R.id.button_first);
         Button buttonFound = view.findViewById(R.id.button_found);
 
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        db = FirebaseFirestore.getInstance();
 
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
         kidLost = sharedPreferences.getBoolean("kidLost", false);
+        id = sharedPreferences.getInt("id", 0);
 
         if(!kidLost) {
             buttonLost.setVisibility(View.VISIBLE);
@@ -46,6 +56,9 @@ public class FirstFragment extends Fragment {
             buttonFound.setVisibility(View.VISIBLE);
         }
 
+        // ID textview
+        TextView idTextView = view.findViewById(R.id.textview_first);
+        idTextView.setText("#" + id.toString());
 
         // lost button
         buttonLost.setOnClickListener(new View.OnClickListener() {
@@ -93,14 +106,16 @@ public class FirstFragment extends Fragment {
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-//                                NavHostFragment.findNavController(FirstFragment.this)
-//                                    .navigate(R.id.action_FirstFragment_to_SecondFragment);
+//
                                 SharedPreferences.Editor editor = sharedPreferences.edit();
                                 editor.putBoolean("kidLost", false);
                                 editor.apply();
 
                                 buttonLost.setVisibility(View.VISIBLE);
                                 buttonFound.setVisibility(View.GONE);
+
+                                db.collection("kids").document(id.toString()).delete();
+//
                             }
                         });
                 builder.setNegativeButton("Annuleren", new DialogInterface.OnClickListener() {
