@@ -79,15 +79,17 @@ public class FirstFragment extends Fragment {
                 }
                 if(value != null && value.exists()) {
                     Log.d("DATA", "Current data: " + value.getData());
-                    if(value.getData().get("found").equals(true)) {
-                        buttonMic.setVisibility(VISIBLE);
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putBoolean("kidLost", false);
-                        editor.apply();
-                        Log.d("MIC", "on");
-                    } else {
-                        buttonMic.setVisibility(INVISIBLE);
-                        Log.d("MIC", "off");
+                    if(value.contains("found")) {
+                        if(value.getData().get("found").equals(true)) {
+                            buttonMic.setVisibility(VISIBLE);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putBoolean("kidLost", false);
+                            editor.apply();
+                            Log.d("MIC", "on");
+                        } else {
+                            buttonMic.setVisibility(INVISIBLE);
+                            Log.d("MIC", "off");
+                        }
                     }
                 } else {
                     Log.d("DATA", "Current data: null");
@@ -130,6 +132,7 @@ public class FirstFragment extends Fragment {
                                 Map<String, Object> kid = new HashMap<>();
                                 kid.put("id", id);
                                 kid.put("found", false);
+                                kid.put("hasMessage", false);
                                 // send ID to database
                                 Integer idInteger = new Integer(id);
                                 db.collection("kids").document(idInteger.toString()).set(kid);

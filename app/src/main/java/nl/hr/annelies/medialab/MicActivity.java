@@ -121,6 +121,9 @@ public class MicActivity extends AppCompatActivity {
 
                         uploadAudio();
 
+                        Map<String, Object> kid = new HashMap<>();
+                        kid.put("hasMessage", true);
+
                         // let admins know that a message was recorded
                         Integer idInteger = new Integer(id);
                         db.collection("kids").document(idInteger.toString()).update("hasMessage", true);
