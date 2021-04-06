@@ -77,9 +77,10 @@ public class MicActivity extends AppCompatActivity {
 
 //        EditText nameInput;
         Button cancelButton;
-        Button submitButton;
+//        Button submitButton;
         Button recordButton;
         ImageView micImage;
+        boolean isRecording = false;
 
 //        FloatingActionButton playButton;
 
@@ -136,7 +137,7 @@ public class MicActivity extends AppCompatActivity {
 
 //            nameInput = findViewById(R.id.name_input);
             cancelButton = findViewById(R.id.button_second);
-            submitButton = findViewById(R.id.button_third);
+//            submitButton = findViewById(R.id.button_third);
             recordButton = findViewById(R.id.button_mic);
 //            playButton = findViewById(R.id.button_play);
 
@@ -151,51 +152,79 @@ public class MicActivity extends AppCompatActivity {
 //                            .navigate(R.id.action_SecondFragment_to_FirstFragment);
                 }
             });
-
-            submitButton.setOnClickListener(new View.OnClickListener() {
+//
+//            submitButton.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    uploadAudio();
+////                    String name = nameInput.getText().toString();
+//
+//
+//                    Map<String, Object> kid = new HashMap<>();
+////                    kid.put("name", name);
+//                    kid.put("id", id);
+////                kid.put("mic", uploadAudio());
+//                    // send ID to database
+//
+//                    db.collection("kids")
+//                            .add(kid);
+//                }
+//            });
+//
+            recordButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    uploadAudio();
-//                    String name = nameInput.getText().toString();
-
-
-                    Map<String, Object> kid = new HashMap<>();
-//                    kid.put("name", name);
-                    kid.put("id", id);
-//                kid.put("mic", uploadAudio());
-                    // send ID to database
-
-                    db.collection("kids")
-                            .add(kid);
-                }
-            });
-//
-            recordButton.setOnTouchListener(new View.OnTouchListener() {
-                @Override
-                public boolean onTouch(View view, MotionEvent event) {
-                    System.out.println(event);
-                    System.out.println(event.getAction());
-                    // up = 1, down is 0
-
-                    if (event.getAction() == 0) {
-
-//                    mediaRecorder.start();
+                    if(!isRecording) {
                         try {
                             recordAudio(view);
+                            isRecording = true;
+                            recordButton.setText("Verzenden");
                             micImage.setImageResource(R.drawable.mic_orange);
 
 
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-                    } else if (event.getAction() == 1) {
+                    } else {
                         stopAudio(view);
+                        isRecording = false;
+                        recordButton.setText("Opnemen");
                         micImage.setImageResource(R.drawable.mic_grey);
+
+                        uploadAudio();
+                        Map<String, Object> kid = new HashMap<>();
+                        kid.put("id", id);
+                        // send ID to database
+                        db.collection("kids")
+                                .add(kid);
                     }
-
-
-                    return false;
                 }
+//
+//                @Override
+//                public boolean onTouch(View view, MotionEvent event) {
+//                    System.out.println(event);
+//                    System.out.println(event.getAction());
+//                    // up = 1, down is 0
+//
+//                    if (event.getAction() == 0) {
+//
+////                    mediaRecorder.start();
+//                        try {
+//                            recordAudio(view);
+//                            micImage.setImageResource(R.drawable.mic_orange);
+//
+//
+//                        } catch (IOException e) {
+//                            e.printStackTrace();
+//                        }
+//                    } else if (event.getAction() == 1) {
+//                        stopAudio(view);
+//                        micImage.setImageResource(R.drawable.mic_grey);
+//                    }
+//
+//
+//                    return false;
+//                }
             });
 
 

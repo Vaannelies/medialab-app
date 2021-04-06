@@ -30,6 +30,7 @@
             app:summaryOn="@string/attachment_summary_on"
             app:title="@string/attachment_title" />
 
+
     </PreferenceCategory>
 
 </PreferenceScreen>
