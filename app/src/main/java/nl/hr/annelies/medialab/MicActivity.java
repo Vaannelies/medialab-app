@@ -1,6 +1,7 @@
 package nl.hr.annelies.medialab;
 
 import android.content.Intent;
+import android.media.Image;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.net.Uri;
@@ -45,6 +46,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
@@ -66,7 +68,6 @@ import java.util.Map;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-
 public class MicActivity extends AppCompatActivity {
 
         String fileName = "/sdcard/myaudio.3gp";
@@ -74,11 +75,13 @@ public class MicActivity extends AppCompatActivity {
         MediaPlayer mediaPlayer = new MediaPlayer();
         FirebaseFirestore db;
 
-        EditText nameInput;
+//        EditText nameInput;
         Button cancelButton;
         Button submitButton;
-        FloatingActionButton recordButton;
-        FloatingActionButton playButton;
+        Button recordButton;
+        ImageView micImage;
+
+//        FloatingActionButton playButton;
 
 
 
@@ -104,6 +107,9 @@ public class MicActivity extends AppCompatActivity {
             Button homeButton = findViewById(R.id.button_2);
             Button settingsButton = findViewById(R.id.button_3);
 
+            // Mic image
+            micImage = findViewById(R.id.mic_image);
+
             rulesButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -128,13 +134,13 @@ public class MicActivity extends AppCompatActivity {
             });
 
 
-            nameInput = findViewById(R.id.name_input);
+//            nameInput = findViewById(R.id.name_input);
             cancelButton = findViewById(R.id.button_second);
             submitButton = findViewById(R.id.button_third);
             recordButton = findViewById(R.id.button_mic);
-            playButton = findViewById(R.id.button_play);
+//            playButton = findViewById(R.id.button_play);
 
-            playButton.setEnabled(false);
+//            playButton.setEnabled(false);
 
 
             cancelButton.setOnClickListener(new View.OnClickListener() {
@@ -150,11 +156,11 @@ public class MicActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     uploadAudio();
-                    String name = nameInput.getText().toString();
+//                    String name = nameInput.getText().toString();
 
 
                     Map<String, Object> kid = new HashMap<>();
-                    kid.put("name", name);
+//                    kid.put("name", name);
                     kid.put("id", id);
 //                kid.put("mic", uploadAudio());
                     // send ID to database
@@ -176,11 +182,15 @@ public class MicActivity extends AppCompatActivity {
 //                    mediaRecorder.start();
                         try {
                             recordAudio(view);
+                            micImage.setImageResource(R.drawable.mic_orange);
+
+
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
                     } else if (event.getAction() == 1) {
                         stopAudio(view);
+                        micImage.setImageResource(R.drawable.mic_grey);
                     }
 
 
@@ -189,18 +199,18 @@ public class MicActivity extends AppCompatActivity {
             });
 
 
-            playButton.setOnClickListener(new View.OnClickListener() {
-
-                @Override
-                public void onClick(View view) {
-//                playButton.setEnabled(false);
-                    try {
-                        playAudio(view);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
+//            playButton.setOnClickListener(new View.OnClickListener() {
+//
+//                @Override
+//                public void onClick(View view) {
+////                playButton.setEnabled(false);
+//                    try {
+//                        playAudio(view);
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            });
 
 
 //        recordButton.setOnClickListener(new View.OnClickListener() {
@@ -245,7 +255,7 @@ public class MicActivity extends AppCompatActivity {
             }
 
             mediaRecorder.start();
-            playButton.setEnabled(false);
+//            playButton.setEnabled(false);
         }
 
         public void stopAudio (View view)
@@ -258,7 +268,7 @@ public class MicActivity extends AppCompatActivity {
             mediaRecorder.stop();
             mediaRecorder.release();
             mediaRecorder = null;
-            playButton.setEnabled(true);
+//            playButton.setEnabled(true);
             try {
                 playAudio(view);
                 System.out.println("Hoi");

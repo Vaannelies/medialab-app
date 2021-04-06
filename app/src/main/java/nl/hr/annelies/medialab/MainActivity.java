@@ -19,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 
+import android.view.MotionEvent;
 import android.view.View;
 
 import android.view.Menu;
@@ -37,6 +38,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.io.IOException;
 import java.util.List;
 
 
@@ -100,6 +102,35 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(MainActivity.this);
         fetchLocation();
 
+
+        // onclicklistener for the tooltip:
+//        recordButton.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View view, MotionEvent event) {
+//                System.out.println(event);
+//                System.out.println(event.getAction());
+//                // up = 1, down is 0
+//
+//                if (event.getAction() == 0) {
+//
+////                    mediaRecorder.start();
+//                    try {
+//                        recordAudio(view);
+//                        micImage.setImageResource(R.drawable.mic_orange);
+//
+//
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+//                } else if (event.getAction() == 1) {
+//                    stopAudio(view);
+//                    micImage.setImageResource(R.drawable.mic_grey);
+//                }
+//
+//
+//                return false;
+//            }
+//        });
 
 
     }
