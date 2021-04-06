@@ -16,10 +16,12 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -39,6 +41,11 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.io.IOException;
 import java.util.List;
@@ -50,20 +57,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     FusedLocationProviderClient fusedLocationProviderClient;
     private static final int REQUEST_CODE = 101;
     private GoogleMap mMap;
-    private String markerIcon = "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png";
     Hotspot[] hotspots = new Hotspot[3] ;
     Button rulesButton;
     Button settingsButton;
     Integer id;
-
-
-
-
-
-//    hotspots[0] = new Hotspot("strandwacht", new LatLng(-32, 138.2), "hallo");
-//    {name: "hoi", location: new LatLng(32, 42), message: "lol"}];
-
-//    List<{name: String, location: LatLng, message: String}> hotspots = [{name: "strandwacht", location: new LatLng(-32, 138.2), message: "hallo"}];
+    FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +69,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         setContentView(R.layout.activity_main);
 
 
+        // buttons
+        rulesButton = findViewById(R.id.button_1);
+        settingsButton = findViewById(R.id.button_3);
+
+        // shared preferences
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -79,15 +82,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         id = sharedPreferences.getInt("id", 0);
 
-
         hotspots[0] = new Hotspot("strandwacht", new LatLng(52.11463474012185, 4.280247697237467), "hallo");
         hotspots[1] = new Hotspot("pier", new LatLng(52.11796848556339, 4.280011749484001), "pier");
         hotspots[2] = new Hotspot("restaurantje ofzo", new LatLng(52.11224552563259, 4.278095452177875), "restaurantje denk ik");
 //        hotspots[1] = new Hotspot("informatie punt", new LatLng(52.11796848556339, 4.280011749484001), "info enzo");
-
-        // buttons
-        rulesButton = findViewById(R.id.button_1);
-        settingsButton = findViewById(R.id.button_3);
 
         rulesButton.setOnClickListener(new View.OnClickListener() {
             @Override

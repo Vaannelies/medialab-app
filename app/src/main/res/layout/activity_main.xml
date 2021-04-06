@@ -30,7 +30,7 @@
             android:id="@+id/content_main"
             layout="@layout/content_main"
             android:layout_width="match_parent"
-            android:layout_height="120dp"
+            android:layout_height="wrap_content"
             app:layout_constraintBottom_toTopOf="@+id/fragment_maps"
             app:layout_constraintTop_toTopOf="parent"
 
