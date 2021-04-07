@@ -25,14 +25,16 @@
             >
             <TextView
                 android:id="@+id/textview_second"
-                android:layout_width="wrap_content"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:text="Houd de knop ingedrukt om op te nemen."
+                android:text="Door de microfoon te gebruiken kunt u tegen uw kind praten."
+                android:textAlignment="center"
                 app:layout_constraintBottom_toTopOf="@id/mic_image"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_marginBottom="40dp"/>
+
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="wrap_content"

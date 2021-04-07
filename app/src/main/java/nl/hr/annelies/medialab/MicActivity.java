@@ -164,12 +164,12 @@ public class MicActivity extends AppCompatActivity {
             mediaRecorder.stop();
             mediaRecorder.release();
             mediaRecorder = null;
-            try {
-                playAudio(view);
-                System.out.println("Hoi");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+//            try {
+//                playAudio(view);
+////                System.out.println("Hoi");
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
         }
 
         public void playAudio (View view) throws IOException
