@@ -62,6 +62,7 @@ public class FirstFragment extends Fragment {
         if(!kidLost) {
             buttonLost.setVisibility(VISIBLE);
             buttonFound.setVisibility(GONE);
+            buttonMic.setVisibility(INVISIBLE);
         } else {
             buttonLost.setVisibility(GONE);
             buttonFound.setVisibility(VISIBLE);
@@ -81,10 +82,12 @@ public class FirstFragment extends Fragment {
                     Log.d("DATA", "Current data: " + value.getData());
                     if(value.contains("found")) {
                         if(value.getData().get("found").equals(true)) {
-                            buttonMic.setVisibility(VISIBLE);
-                            SharedPreferences.Editor editor = sharedPreferences.edit();
-                            editor.putBoolean("kidLost", false);
-                            editor.apply();
+                            if(sharedPreferences.getBoolean("kidLost", false)) {
+                                buttonMic.setVisibility(VISIBLE);
+                            }
+//                            SharedPreferences.Editor editor = sharedPreferences.edit();
+//                            editor.putBoolean("kidLost", false);
+//                            editor.apply();
                             Log.d("MIC", "on");
                         } else {
                             buttonMic.setVisibility(INVISIBLE);

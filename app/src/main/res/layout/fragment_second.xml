@@ -19,9 +19,10 @@
         >
         <TextView
             android:id="@+id/textview_second"
-            android:layout_width="wrap_content"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:text="Houd de knop ingedrukt om op te nemen."
+            android:textAlignment="center"
+            android:text="Door de microfoon te gebruiken kunt u tegen uw kind praten."
             app:layout_constraintBottom_toTopOf="@id/mic_buttons"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

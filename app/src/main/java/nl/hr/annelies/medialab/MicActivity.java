@@ -175,6 +175,7 @@ public class MicActivity extends AppCompatActivity {
         public void playAudio (View view) throws IOException
         {
             mediaPlayer = new MediaPlayer();
+            System.out.println("filename : " + fileName);
             mediaPlayer.setDataSource(fileName);
             mediaPlayer.prepare();
             mediaPlayer.start();

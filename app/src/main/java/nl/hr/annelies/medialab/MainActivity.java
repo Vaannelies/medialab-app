@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putInt("id", 176204);
+        editor.putInt("id", 329004);
         editor.apply();
 
         id = sharedPreferences.getInt("id", 0);
@@ -111,36 +111,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(MainActivity.this);
         fetchLocation();
-
-
-        // onclicklistener for the tooltip:
-//        recordButton.setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View view, MotionEvent event) {
-//                System.out.println(event);
-//                System.out.println(event.getAction());
-//                // up = 1, down is 0
-//
-//                if (event.getAction() == 0) {
-//
-////                    mediaRecorder.start();
-//                    try {
-//                        recordAudio(view);
-//                        micImage.setImageResource(R.drawable.mic_orange);
-//
-//
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    }
-//                } else if (event.getAction() == 1) {
-//                    stopAudio(view);
-//                    micImage.setImageResource(R.drawable.mic_grey);
-//                }
-//
-//
-//                return false;
-//            }
-//        });
 
 
     }
@@ -221,8 +191,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             // user
             LatLng userLocation = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userLocation, 15));
-//            MarkerOptions markOptUser = new MarkerOptions().position(userLocation).title("Huidige locatie").icon(BitmapDescriptorFactory.fromResource(R.drawable.rudy_grey));
-//            mMap.addMarker(markOptUser);
 
             // hotspots
             System.out.println(hotspots);
@@ -231,7 +199,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 String name = "markHotspot" + i;
                 mMap.addMarker(new MarkerOptions().position(hotspots[i].location).title("Hotspot " + i).icon(BitmapDescriptorFactory.fromResource(R.drawable.rudy_grey_small)));
             }
-//            MarkerOptions markOptStrWacht= new MarkerOptions().position(userLocation).title("Huidige locatie").icon(BitmapDescriptorFactory.fromResource(R.drawable.rudy_colored));
         }
     }
 
